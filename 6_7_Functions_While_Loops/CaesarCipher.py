@@ -8,7 +8,7 @@ chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
 
 def caesar_cipher(action, shift, message):
     if shift > len(chars):
-        shift = shift % len(chars)
+        shift %= len(chars)
 
     match action:
         case "e":
