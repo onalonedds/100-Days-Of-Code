@@ -12,6 +12,8 @@ def caesar_cipher(action, shift, message):
             encoded_message = []
             for letter in message:
                 index = chars.index(letter) + shift
+                if index >= len(chars):
+                    index -= len(chars)
                 encoded_message.append(chars[index])
             return ''.join(encoded_message)
         case "d":
