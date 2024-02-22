@@ -1,6 +1,6 @@
 # Hangman Game
 
-secret_word = "house"
+secret_word = "hangman"
 attempts = 10
 placeholder = "_" * len(secret_word)
 
