@@ -8,7 +8,7 @@ placeholder = "_" * len(secret_word)
 
 print(f"I thought of a {len(secret_word)} letter word.\n"
       f"You have {attempts} attempts to guess it.\n"
-      f"If you know the word, type 'w[space][word].'")
+      f"If you know the word, type '=[word].'")
 
 print(''.join(placeholder))
 
@@ -22,8 +22,8 @@ def updated_placeholder(right_char, old_placeholder):
 while attempts > 0:
     guess = input("Guess a letter or a word: ").lower()
     
-    if guess[0] == "w":
-        if guess[2:] == secret_word:
+    if guess[0] == "=":
+        if guess[1:] == secret_word:
             print("You win!")
             exit()
         else:
