@@ -21,11 +21,11 @@ for x in range(a):
     treasure_map.append(line[:])
     line.clear()
 
-x = random.randint(0, a - 1)
-y = random.randint(0, b - 1)
+tx = random.randint(0, a - 1)
+ty = random.randint(0, b - 1)
 print(treasure_map)
 
-treasure_map[x][y] = "T"
+treasure_map[tx][ty] = "T"
 
 print(treasure_map)
 
