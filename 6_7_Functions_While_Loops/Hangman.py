@@ -31,18 +31,18 @@ while attempts > 0:
         attempts -= 1
         placeholder = updated_placeholder(guess, placeholder)
         if attempts == 0 and "_" in placeholder:
-            print(f"Right. You have 0 attempts left. Game over.")
+            print(f"Right! You have 0 attempts left. Game over.")
             exit()
         elif attempts == 0 and "_" not in placeholder:
             print(placeholder)
-            print(f"Right. You win!")
+            print(f"Right! You win!")
             exit()
         elif "_" not in placeholder:
             print(placeholder)
-            print(f"Right. You win with {attempts} attempts left!")
+            print(f"Right! You win with {attempts} attempts left!")
             exit()
         else:
-            print(f"Right. You have {attempts} attempts left.")
+            print(f"Right! You have {attempts} attempts left.")
             print(placeholder)
     else:
         attempts -= 1
