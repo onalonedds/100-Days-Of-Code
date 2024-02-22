@@ -20,8 +20,6 @@ def caesar_cipher(action, shift, message):
                 index = chars.index(letter) - shift
                 decoded_message.append(chars[index])
             return ''.join(decoded_message)
-        case _:
-            print("Wrong input.")
 
 ui_action = ""
 ui_shift = ""
