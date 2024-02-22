@@ -1,6 +1,8 @@
 # Hangman Game
+import random
 
-secret_word = "hangman"
+pets = ["cat", "dog", "bird", "fish", "rabbit", "hamster", "hedgehog", "turtle", "chinchilla"]
+secret_word = random.choice(pets)
 attempts = 10
 placeholder = "_" * len(secret_word)
 
@@ -18,8 +20,8 @@ def updated_placeholder(right_char, old_placeholder):
     return ''.join(new_placeholder)
 
 while attempts > 0:
-    guess = input("Guess a letter or a word: ")
-
+    guess = input("Guess a letter or a word: ").lower()
+    
     if guess[0] == "w":
         if guess[2:] == secret_word:
             print("You win!")
