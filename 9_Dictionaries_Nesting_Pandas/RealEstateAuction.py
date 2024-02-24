@@ -56,6 +56,7 @@ properties = [
 df_lots = pd.DataFrame(properties)
 
 # Setting up Bids data structure
+print("Welcome to Real Estate Auction!")
 num_of_bidders = nect_int(input("How many bidders are there? "))
 
 for i in range(num_of_bidders):
@@ -71,8 +72,6 @@ for index, row in df_lots.iterrows():
 df_bids = pd.DataFrame(all_bids)
 
 # Program starts
-print("Welcome to Real Estate Auction!")
-
 for index, row in df_lots.iterrows():
     print("\nProperty Type:", row['property'])
     description = row['description']
