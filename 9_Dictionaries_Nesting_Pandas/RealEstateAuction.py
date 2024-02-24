@@ -57,14 +57,15 @@ df_lots = pd.DataFrame(properties)
 
 # Setting up Bids data structure
 print("Welcome to Real Estate Auction!")
-num_of_bidders = nect_int(input("How many bidders are there? "))
+num_of_bidders = nect_int(input("\nHow many bidders are there? "))
+
+if num_of_bidders == 0:
+    exit()
 
 for i in range(num_of_bidders):
     name = input("Enter bidder name: ")
     bidders.append(name)
     bidders_for_lot[name] = 0
-
-bidders_for_lot["Winner"] = ""
 
 for index, row in df_lots.iterrows():
     all_bids[row['property']] = bidders_for_lot
@@ -86,10 +87,14 @@ for index, row in df_lots.iterrows():
     for i in range(num_of_bidders):
         bid = nect_int(input(f"{bidders[i]}'s bid: $"))
         df_bids.loc[bidders[i], row['property']] = bid
-        if bid > highest_bid:
-            highest_bid = bid
-            highest_bid_name = bidders[i]
 
-    df_bids.loc["Winner", row['property']] = highest_bid_name
+# Final calculations
+max_bids = df_bids.max().apply(lambda x: "${:,}".format(x))
+winners_names = df_bids.idxmax()
 
-print(f"\nTable of lots, bidders, and winners:\n\n{df_bids}")
+df_max_bids = pd.DataFrame(max_bids, columns=['Max bid']).T
+df_winners_names = pd.DataFrame(winners_names, columns=['Winner']).T
+
+df_result = pd.concat([df_bids, df_max_bids, df_winners_names])
+
+print(f"\nTable of lots, bidders, and winners:\n\n{df_result}")
