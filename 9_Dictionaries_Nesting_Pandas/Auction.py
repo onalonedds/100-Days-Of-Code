@@ -14,7 +14,6 @@ while more_bidders == "y":
     bid = int(input("What is your bid? $"))
     all_bids[name] = bid
     more_bidders = input("Are there other bidders? y/n ")
-    print("\033[H\033[J", end="")
 
 for key, value in all_bids.items():
     if value > highest_bid:
