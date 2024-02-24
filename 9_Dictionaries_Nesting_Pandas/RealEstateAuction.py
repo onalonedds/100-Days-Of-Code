@@ -5,6 +5,16 @@
 import pyarrow
 import pandas as pd
 
+# All necessary variables
+name = ""
+bid = 0
+num_of_bidders = 0
+bidders =  []
+bidders_for_lot = {}
+all_bids = {}
+highest_bid = 0
+highest_bid_name = ""
+
 # No error conversion to Int
 def nect_int(user_input):
     if not user_input.isnumeric():
@@ -12,6 +22,7 @@ def nect_int(user_input):
     else:
         return int(user_input)
 
+# Setting up Lots data structure
 properties = [
     {
         "property": "Apartment",
@@ -44,17 +55,7 @@ properties = [
 
 df_lots = pd.DataFrame(properties)
 
-name = ""
-bid = 0
-num_of_bidders = 0
-bidders =  []
-bidders_for_lot = {}
-all_bids = {}
-highest_bid = 0
-highest_bid_name = ""
-
-print("Welcome to Real Estate Auction!")
-
+# Setting up Bids data structure
 num_of_bidders = nect_int(input("How many bidders are there? "))
 
 for i in range(num_of_bidders):
@@ -68,6 +69,9 @@ for index, row in df_lots.iterrows():
     all_bids[row['property']] = bidders_for_lot
 
 df_bids = pd.DataFrame(all_bids)
+
+# Program starts
+print("Welcome to Real Estate Auction!")
 
 for index, row in df_lots.iterrows():
     print("\nProperty Type:", row['property'])
@@ -90,33 +94,3 @@ for index, row in df_lots.iterrows():
     df_bids.loc["Winner", row['property']] = highest_bid_name
 
 print(f"\nTable of lots, bidders, and winners:\n\n{df_bids}")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
