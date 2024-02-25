@@ -1,5 +1,3 @@
-# PostgreSQL admin pass: q1w2e3r4
-
 # Real Estate Auction
 
 import pyarrow
