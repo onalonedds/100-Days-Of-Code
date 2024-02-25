@@ -9,7 +9,6 @@ import tools
 # All necessary variables
 name = ""
 bid = 0
-num_of_bidders = 0
 bidders =  []
 bidders_for_lot = {}
 all_bids = {}
@@ -51,7 +50,7 @@ df_lots = pd.DataFrame(properties)
 
 # Setting up Bids data structure
 print("Welcome to Real Estate Auction!")
-num_of_bidders = tools.nect_int(input("\nHow many bidders are there? "))
+num_of_bidders = tools.to_int(input("\nHow many bidders are there? "))
 
 if num_of_bidders == 0:
     exit()
@@ -79,7 +78,11 @@ for index, row in df_lots.iterrows():
     highest_bid = 0
 
     for i in range(num_of_bidders):
-        bid = tools.nect_int(input(f"{bidders[i]}'s bid: $"))
+        bid = tools.to_int(input(f"{bidders[i]}'s bid: $"))
+
+        if bid <= int(description['starting_price']):
+            bid = tools.to_int(input("Bid above the starting price, otherwise you will lose: $"))
+
         df_bids.loc[bidders[i], row['property']] = bid
 
 # Final calculations

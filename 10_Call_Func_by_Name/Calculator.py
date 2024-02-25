@@ -34,15 +34,16 @@ while keep_working == "":
         if x == "m":
             x = memory
         else:
-            x = tools.nect_int(x)
+            x = tools.to_float(x)
     else:
-        x = tools.nect_int(input("\nEnter first operand: "))
+        x = tools.to_float(input("\nEnter first operand: "))
 
     operation = input("Choose an operation (+ - * /): ")
-    y = tools.nect_int(input("Enter second operand: "))
+    y = tools.to_float(input("Enter second operand: "))
 
     if operation == "/" and y == 0:
         print(f"{x} {operation} {y} Error: division by zero.")
+        memory = 0
     else:
         action = operations[operation]
         memory = action(x, y)
