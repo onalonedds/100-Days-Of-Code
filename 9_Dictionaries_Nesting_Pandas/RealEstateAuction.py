@@ -4,6 +4,7 @@
 
 import pyarrow
 import pandas as pd
+import tools
 
 # All necessary variables
 name = ""
@@ -14,14 +15,6 @@ bidders_for_lot = {}
 all_bids = {}
 highest_bid = 0
 highest_bid_name = ""
-
-# No error conversion to Int
-def nect_int(user_input):
-    """Converts input to Int with no error for Str"""
-    if not user_input.isnumeric():
-        return 0
-    else:
-        return int(user_input)
 
 # Setting up Lots data structure
 properties = [
@@ -58,7 +51,7 @@ df_lots = pd.DataFrame(properties)
 
 # Setting up Bids data structure
 print("Welcome to Real Estate Auction!")
-num_of_bidders = nect_int(input("\nHow many bidders are there? "))
+num_of_bidders = tools.nect_int(input("\nHow many bidders are there? "))
 
 if num_of_bidders == 0:
     exit()
@@ -86,7 +79,7 @@ for index, row in df_lots.iterrows():
     highest_bid = 0
 
     for i in range(num_of_bidders):
-        bid = nect_int(input(f"{bidders[i]}'s bid: $"))
+        bid = tools.nect_int(input(f"{bidders[i]}'s bid: $"))
         df_bids.loc[bidders[i], row['property']] = bid
 
 # Final calculations
