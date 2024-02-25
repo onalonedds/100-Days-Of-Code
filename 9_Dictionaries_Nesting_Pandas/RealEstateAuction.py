@@ -10,7 +10,6 @@ import tools
 name = ""
 bid = 0
 bidders =  []
-bidders_for_lot = {}
 all_bids = {}
 highest_bid = 0
 highest_bid_name = ""
@@ -48,7 +47,7 @@ properties = [
 
 df_lots = pd.DataFrame(properties)
 
-# Setting up Bids data structure
+# Program starts
 print("Welcome to Real Estate Auction!")
 num_of_bidders = tools.to_int(input("\nHow many bidders are there? "))
 
@@ -58,14 +57,16 @@ if num_of_bidders == 0:
 for i in range(num_of_bidders):
     name = input("Enter bidder name: ")
     bidders.append(name)
-    bidders_for_lot[name] = 0
+
+# The following snippet keeps int type for bids values.
+# Othervise, they become floats when recording into DataFrame.
 
 for index, row in df_lots.iterrows():
-    all_bids[row['property']] = bidders_for_lot
+    all_bids[row['property']] = {name: 0 for name in bidders}
 
 df_bids = pd.DataFrame(all_bids)
 
-# Program starts
+# Starting auction
 for index, row in df_lots.iterrows():
     print("\nProperty Type:", row['property'])
     description = row['description']
