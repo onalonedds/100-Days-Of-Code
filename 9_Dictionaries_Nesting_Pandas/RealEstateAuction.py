@@ -82,6 +82,7 @@ for index, row in df_lots.iterrows():
         bid = tools.to_int(input(f"{bidders[i]}'s bid: $"))
 
         if bid <= int(description['starting_price']):
+            # If so, I warned you :)
             bid = tools.to_int(input("Bid above the starting price, otherwise you will lose: $"))
 
         df_bids.loc[bidders[i], row['property']] = bid
