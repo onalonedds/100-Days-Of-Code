@@ -17,28 +17,36 @@ def print_set(card_set, hide_first = False):
         print_card(card)
 
 def card_sum(card_set):
-    min_sum = 0
-    max_sum = 0
-
+    card_sum = 0
     for card in card_set:
         try:
             int(card)
-            min_sum += card
-            max_sum += card
+            card_sum += card
         except ValueError:
             if card == "A":
-                min_sum += 1
-                max_sum += 11
+                card_sum += 11
+                if card_sum > 21:
+                    card_sum -= 10
             else:
-                min_sum += 10
-                max_sum += 10
+                card_sum += 10
 
-    return [min_sum, max_sum]
+    return card_sum
+
+def check_21_draw():
+    if player_sum == 21:
+        print("You win!")
+        exit()
+    elif dealer_sum == 21:
+        print("Dealer wins!")
+        exit()
+    elif player_sum == 21 and dealer_sum == 21:
+        print("Draw.")
+        exit()
 
 dealer_cards = [random.choice(cards), random.choice(cards)]
 player_cards = [random.choice(cards), random.choice(cards)]
 
-print_set(dealer_cards, True)
+print_set(dealer_cards, False)
 
 print(" ")
 
@@ -47,44 +55,39 @@ print_set(player_cards)
 player_sum = card_sum(player_cards)
 dealer_sum = card_sum(dealer_cards)
 
-if 21 in player_sum:
-    print("You win!")
-    exit()
-elif 21 in dealer_sum:
-    print("Dealer wins!")
-    exit()
-elif 21 in player_sum and 21 in dealer_sum:
-    print("Draw.")
-    exit()
+check_21_draw()
 
-if "A" in player_cards:
-    print(f"Player: {player_sum[0]}(A=1) or {player_sum[1]}(A=11)")
-else:
-    print(f"Player: {player_sum[0]}")
+print(f"Player: {player_sum}")
 
-if player_sum[0] != 21 and player_sum[1] != 21:
+add_player_card = "y"
+
+while add_player_card == "y":
     add_player_card = input("Wanna take one more card? y/n ")
     if add_player_card == "y":
         player_cards.append(random.choice(cards))
         player_sum = card_sum(player_cards)
+        print_set(player_cards)
+        print(f"Player: {player_sum}")
 
-while dealer_sum[1] < 19:
+while dealer_sum < 19:
     dealer_cards.append(random.choice(cards))
     dealer_sum = card_sum(dealer_cards)
 
 print_set(dealer_cards)
-print(f"Dealer: {dealer_sum[1]}")
+print(f"Dealer: {dealer_sum}")
 
 print_set(player_cards)
-print(f"Player: {player_sum[1]}")
+print(f"Player: {player_sum}")
 
-if 21 in player_sum:
-     print("You win!")
-elif 21 in dealer_sum:
-     print("Dealer wins!")
-elif player_sum[1] > dealer_sum[1]:
+check_21_draw()
+
+if player_sum > dealer_sum and player_sum < 21:
     print("You win!")
-elif player_sum[1] == dealer_sum[1]:
-    print("Draw.")
-else:
+elif dealer_sum > player_sum and dealer_sum < 21:
     print("Dealer wins!")
+elif player_sum > 21 and dealer_sum > 21:
+    print("Draw.")
+elif player_sum > 21 and dealer_sum < 21:
+    print("Dealer wins!")
+elif player_sum == dealer_sum:
+    print("Draw.")
