@@ -46,7 +46,7 @@ def check_21_draw():
 dealer_cards = [random.choice(cards), random.choice(cards)]
 player_cards = [random.choice(cards), random.choice(cards)]
 
-print_set(dealer_cards, False)
+print_set(dealer_cards, True)
 
 print(" ")
 
