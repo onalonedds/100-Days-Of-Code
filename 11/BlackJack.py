@@ -32,7 +32,7 @@ def card_sum(card_set):
 
     return card_sum
 
-def check_21_draw():
+def check_black_jack():
     if player_sum == 21:
         print("You win!")
         exit()
@@ -55,7 +55,7 @@ print_set(player_cards)
 player_sum = card_sum(player_cards)
 dealer_sum = card_sum(dealer_cards)
 
-check_21_draw()
+check_black_jack()
 
 print(f"Player: {player_sum}")
 
@@ -69,7 +69,7 @@ while add_player_card == "y":
         print_set(player_cards)
         print(f"Player: {player_sum}")
 
-while dealer_sum < 19:
+while dealer_sum < 17:
     dealer_cards.append(random.choice(cards))
     dealer_sum = card_sum(dealer_cards)
 
@@ -79,7 +79,7 @@ print(f"Dealer: {dealer_sum}")
 print_set(player_cards)
 print(f"Player: {player_sum}")
 
-check_21_draw()
+check_black_jack()
 
 if player_sum > dealer_sum and player_sum < 21:
     print("You win!")
