@@ -17,20 +17,20 @@ def print_set(card_set, hide_first = False):
         print_card(card)
 
 def card_sum(card_set):
-    card_sum = 0
+    c_sum = 0
     for card in card_set:
         try:
             int(card)
-            card_sum += card
+            c_sum += card
         except ValueError:
             if card == "A":
-                card_sum += 11
-                if card_sum > 21:
-                    card_sum -= 10
+                c_sum += 11
+                if c_sum > 21:
+                    c_sum -= 10
             else:
-                card_sum += 10
+                c_sum += 10
 
-    return card_sum
+    return c_sum
 
 def check_black_jack():
     if player_sum == 21:
