@@ -1,11 +1,11 @@
- # Guess the number game
+# Guess the number game
 import random
 
 range_str = input("Define the range within which the random number is selected: ")
 range_num = range_str.split()
 number = random.randint(int(range_num[0]), int(range_num[1]))
 
-#print(number)
+
 def handle_user_input(user_input):
     if user_input == "":
         print("Good bye!")
@@ -16,6 +16,7 @@ def handle_user_input(user_input):
     else:
         user_input = int(user_input)
         return user_input
+
 
 guess = handle_user_input(input("Guess the number I selected, or press Enter to quit: "))
 attempts = 0

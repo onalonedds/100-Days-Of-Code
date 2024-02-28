@@ -29,6 +29,7 @@ treasure_map[tx][ty] = "T"
 
 print(treasure_map)
 
+
 def check_map(user_guess):
     i = int(user_guess[0]) - 1
     j = int(user_guess[1]) - 1
@@ -39,6 +40,7 @@ def check_map(user_guess):
         user_guess = input("Здесь ничего нет. Куда дальше? (type N to quit): ")
         if user_guess.lower() != "n":
             check_map(user_guess)
+
 
 guess_where = input("Вы находитесь на северо-западном краю острова. Сколько км вы пройдете на юг и сколько на восток? ")
 check_map(guess_where)

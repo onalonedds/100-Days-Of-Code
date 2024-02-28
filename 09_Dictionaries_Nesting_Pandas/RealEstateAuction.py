@@ -57,7 +57,7 @@ for i in range(num_of_bidders):
     bidders.append(name)
 
 # The following snippet keeps int type for bids values.
-# Othervise, they become floats when recording into DataFrame.
+# Otherwise, they become floats when recording into DataFrame.
 
 for index, row in df_lots.iterrows():
     all_bids[row['property']] = {name: 0 for name in bidders}

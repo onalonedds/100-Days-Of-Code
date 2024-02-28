@@ -12,12 +12,14 @@ print(f"I thought of a {len(secret_word)} letter word.\n"
 
 print(''.join(placeholder))
 
+
 def updated_placeholder(right_char, old_placeholder):
     new_placeholder = list(old_placeholder)
     indices = [i for i, char in enumerate(list(secret_word)) if char == right_char]
     for index in indices:
         new_placeholder[index] = right_char
     return ''.join(new_placeholder)
+
 
 while attempts > 0:
     guess = input("Guess a letter or a word: ").lower()

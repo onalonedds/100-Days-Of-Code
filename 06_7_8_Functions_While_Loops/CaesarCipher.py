@@ -6,6 +6,7 @@ chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
          '8', '9', '!', '?', '#', '$', '%', '&', '(', ')', '*', '+',
          ' ', ',', '.', ':', ';']
 
+
 def caesar_cipher(action, shift, message):
     """Encodes or decodes given message"""
     if shift > len(chars):
@@ -26,6 +27,7 @@ def caesar_cipher(action, shift, message):
                 index = chars.index(letter) - shift
                 decoded_message += chars[index]
             return decoded_message
+
 
 keep_working = "y"
 

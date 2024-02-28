@@ -3,11 +3,13 @@ import random
 
 cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"]
 
+
 def print_card(card):
     if card == 10:
         print(f"[{card} ]")
     else:
         print(f"[{card}  ]")
+
 
 def print_set(card_set, hide_first = False):
     to_print = card_set[:]
@@ -15,6 +17,7 @@ def print_set(card_set, hide_first = False):
         to_print[0] = " "
     for card in to_print:
         print_card(card)
+
 
 def card_sum(card_set):
     c_sum = 0
@@ -32,6 +35,7 @@ def card_sum(card_set):
 
     return c_sum
 
+
 def check_black_jack():
     if player_sum == 21:
         print("You win!")
@@ -42,6 +46,7 @@ def check_black_jack():
     elif player_sum == 21 and dealer_sum == 21:
         print("Draw.")
         exit()
+
 
 dealer_cards = [random.choice(cards), random.choice(cards)]
 player_cards = [random.choice(cards), random.choice(cards)]

@@ -6,10 +6,12 @@ ANIMALS = [
     "Pig", "Gorilla", "Horse", "Giraffe", "Hippopotamus"
 ]
 
+
 def next_animal(exclude):
     animals_to_add = ANIMALS[:]
     animals_to_add.remove(exclude)
     return random.choice(animals_to_add)
+
 
 score = 0
 next_round = True

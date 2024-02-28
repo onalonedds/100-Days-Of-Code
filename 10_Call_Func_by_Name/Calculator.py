@@ -5,31 +5,38 @@ x = 0
 y = 0
 keep_working = ""
 
-def add(x, y):
-    return x + y
 
-def substract(x, y):
-    return x - y
+def add(n1, n2):
+    return n1 + n2
 
-def multiply(x, y):
-    return x * y
 
-def divide(x, y):
-    return x / y
+def subtract(n1, n2):
+    return n1 - n2
+
+
+def multiply(n1, n2):
+    return n1 * n2
+
+
+def divide(n1, n2):
+    return n1 / n2
+
 
 operations = {
     "+": add,
-    "-": substract,
+    "-": subtract,
     "*": multiply,
     "/": divide
 }
+
+memory = ""
 
 print("Operations available:")
 for key in operations:
     print(f"{key} ({operations[key].__name__})")
 
 while keep_working == "":
-    if 'memory' in globals():
+    if memory != "":
         x = input("\nEnter first operand or type 'm' to use prev result: ")
         if x == "m":
             x = memory
