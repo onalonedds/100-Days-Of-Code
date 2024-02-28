@@ -22,7 +22,7 @@ while next_round:
     size_1 = ANIMALS.index(animals_pair[0])
     size_2 = ANIMALS.index(animals_pair[1])
 
-    while guess != "0" and guess != "1":
+    while guess not in ["0", "1"]:
         guess = input(f"Who is bigger: {animals_pair[0]} (0) or {animals_pair[1]} (1)? ")
 
     if animals_pair[int(guess)] == ANIMALS[max(size_1, size_2)]:
