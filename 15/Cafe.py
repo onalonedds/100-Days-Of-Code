@@ -14,6 +14,9 @@
 #        Dime    - 10 cents ($0.10)
 #        Quarter - 25 cents ($0.25)
 
+import tools
+
+
 class CoffeeMachine:
     def __init__(self, water, milk, coffee):
         """Creates a new Coffee Machine"""
@@ -58,9 +61,9 @@ class CoffeeMachine:
     def add_supplies(self):
         """Replenish water, milk, and coffee supplies"""
         print("Add supplies")
-        water_amount = int(input("Water: "))
-        milk_amount = int(input("Milk: "))
-        coffee_amount = int(input("Coffee: "))
+        water_amount = tools.to_int(input("Water: "))
+        milk_amount = tools.to_int(input("Milk: "))
+        coffee_amount = tools.to_int(input("Coffee: "))
         self.supplies["water"] += water_amount
         self.supplies["milk"] += milk_amount
         self.supplies["coffee"] += coffee_amount
@@ -79,10 +82,10 @@ class CoffeeMachine:
 
     def ask_for_coins(self):
         print("Insert coins")
-        quarter = int(input("Quarter: "))
-        dime = int(input("Dime: "))
-        nickel = int(input("Nickel: "))
-        penny = int(input("Penny: "))
+        quarter = tools.to_int(input("Quarter: "))
+        dime = tools.to_int(input("Dime: "))
+        nickel = tools.to_int(input("Nickel: "))
+        penny = tools.to_int(input("Penny: "))
         self.money += round(quarter * 0.25 + dime * 0.1 + nickel * 0.05 + penny * 0.01, 2)
         if self.money >= self.menu[self.in_order]["cost"]:
             print(f"Total: ${round(self.money, 2)}.")
