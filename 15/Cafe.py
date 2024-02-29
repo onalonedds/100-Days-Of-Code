@@ -51,6 +51,7 @@ class CoffeeMachine:
             }
         }
         print("Hello! I'm your new Coffee Machine!")
+        print("Commands: 'rep' for report, 'add' for adding supplies, 'e, l, or c' for Espresso, Latte, or Cappuccino.")
 
     def report_supplies(self):
         print(f"Water: {self.supplies["water"]}\n"
