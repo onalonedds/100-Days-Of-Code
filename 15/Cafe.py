@@ -117,6 +117,7 @@ class CoffeeMachine:
         self.money -= self.menu[self.in_order]["cost"]
         self.money = round(self.money, 2)
         print(f"Here's your {self.in_order}! Enjoy!")
+        self.in_order = ""
 
     def work(self):
         while self.keep_working:
