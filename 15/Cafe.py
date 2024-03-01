@@ -21,53 +21,53 @@ class CoffeeMachine:
     def __init__(self, water, milk, coffee):
         """Creates a new Coffee Machine"""
         self.keep_working = True
-        self.supplies = {"water": water, "milk": milk, "coffee": coffee}
+        self.supplies = [["water", water], ["milk", milk], ["coffee", coffee]]
         self.money = 0
         self.in_order = ""
         self.menu = {
             "espresso": {
-                "ingredients": {
-                    "water": 50,
-                    "milk": 0,
-                    "coffee": 18,
-                },
-                "cost": 1.5,
+                "ingredients":
+                    [
+                        ["water", 50],
+                        ["coffee", 18]
+                    ]
+                ,
+                "cost": 1.5
             },
             "latte": {
-                "ingredients": {
-                    "water": 200,
-                    "milk": 150,
-                    "coffee": 24,
-                },
-                "cost": 2.5,
+                "ingredients":
+                    [
+                        ["water", 200],
+                        ["milk", 150],
+                        ["coffee", 24]
+                    ]
+                ,
+                "cost": 2.5
             },
             "cappuccino": {
-                "ingredients": {
-                    "water": 250,
-                    "milk": 100,
-                    "coffee": 24,
-                },
-                "cost": 3.0,
+                "ingredients":
+                    [
+                        ["water", 200],
+                        ["milk", 150],
+                        ["coffee", 24]
+                    ]
+                ,
+                "cost": 3.0
             }
         }
         print("Hello! I'm your new Coffee Machine!")
         print("Commands: 'rep' for report, 'add' for adding supplies, 'e, l, or c' for Espresso, Latte, or Cappuccino.")
 
     def report_supplies(self):
-        print(f"Water: {self.supplies["water"]}\n"
-              f"Milk: {self.supplies["milk"]}\n"
-              f"Coffee: {self.supplies["coffee"]}\n"
-              f"Money: ${self.money}")
+        for item in self.supplies:
+            print(f"{item[0].title()}: {item[1]}")
 
     def add_supplies(self):
         """Replenish water, milk, and coffee supplies"""
         print("Add supplies")
-        water_amount = tools.to_int(input("Water: "))
-        milk_amount = tools.to_int(input("Milk: "))
-        coffee_amount = tools.to_int(input("Coffee: "))
-        self.supplies["water"] += water_amount
-        self.supplies["milk"] += milk_amount
-        self.supplies["coffee"] += coffee_amount
+        for item in self.supplies:
+            amount_to_add = tools.to_int(input(f"{item[0].title()}: "))
+            item[1] += amount_to_add
 
     def accept_order(self, order):
         match order:
@@ -89,22 +89,17 @@ class CoffeeMachine:
         penny = tools.to_int(input("Penny: "))
         self.money += round(quarter * 0.25 + dime * 0.1 + nickel * 0.05 + penny * 0.01, 2)
         if self.money >= self.menu[self.in_order]["cost"]:
-            print(f"Total: ${round(self.money, 2)}.")
+            print(f"Credit: ${round(self.money, 2)}.")
         else:
             print(f"{self.money} is not enough.")
             self.ask_for_coins()
 
     def check_supplies(self):
         missing = []
-        if self.menu[self.in_order]["ingredients"]["water"] > self.supplies["water"]:
-            missing.append("water")
-            print("Not enough water.")
-        if self.menu[self.in_order]["ingredients"]["milk"] > self.supplies["milk"]:
-            missing.append("milk")
-            print("Not enough milk.")
-        if self.menu[self.in_order]["ingredients"]["coffee"] > self.supplies["coffee"]:
-            missing.append("coffee")
-            print("Not enough coffee.")
+        for order, supplies in zip(self.menu[self.in_order]["ingredients"], self.supplies):
+            if order[1] > supplies[1]:
+                missing.append(order[0])
+                print(f"Not enough {order[0]}.")
 
         if len(missing) > 0:
             return False
@@ -112,12 +107,13 @@ class CoffeeMachine:
             return True
 
     def cook(self):
-        self.supplies["water"] -= self.menu[self.in_order]["ingredients"]["water"]
-        self.supplies["milk"] -= self.menu[self.in_order]["ingredients"]["milk"]
-        self.supplies["coffee"] -= self.menu[self.in_order]["ingredients"]["coffee"]
+        for order, supplies in zip(self.menu[self.in_order]["ingredients"], self.supplies):
+            supplies[1] -= order[1]
+
         self.money -= self.menu[self.in_order]["cost"]
         self.money = round(self.money, 2)
         print(f"Here's your {self.in_order}! Enjoy!")
+        print(f"Credit: ${self.money}")
         self.in_order = ""
 
     def work(self):
@@ -130,10 +126,10 @@ class CoffeeMachine:
                     self.add_supplies()
                 case make if make in ["e", "l", "c"]:
                     self.accept_order(make)
-                    if self.money < self.menu[self.in_order]["cost"]:
-                        self.ask_for_coins()
                     while not self.check_supplies():
                         self.add_supplies()
+                    if self.money < self.menu[self.in_order]["cost"]:
+                        self.ask_for_coins()
                     self.cook()
                 case "off":
                     print("Good bye!")

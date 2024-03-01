@@ -1,4 +1,4 @@
 import Cafe
 
-cm = Cafe.CoffeeMachine(300, 200, 100)
+cm = Cafe.CoffeeMachine(5, 500, 5)
 cm.work()
