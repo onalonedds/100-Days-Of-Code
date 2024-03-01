@@ -21,6 +21,7 @@ class CoffeeMachine:
     def __init__(self, water, milk, coffee):
         """Creates a new Coffee Machine"""
         self.keep_working = True
+        self.coins = [("quarter", 0.25), ("dime", 0.10), ("nickel", 0.05), ("penny", 0.01)]
         self.supplies = [["water", water], ["milk", milk], ["coffee", coffee]]
         self.money = 0
         self.in_order = ""
@@ -83,11 +84,11 @@ class CoffeeMachine:
 
     def ask_for_coins(self):
         print("Insert coins")
-        quarter = tools.to_int(input("Quarter: "))
-        dime = tools.to_int(input("Dime: "))
-        nickel = tools.to_int(input("Nickel: "))
-        penny = tools.to_int(input("Penny: "))
-        self.money += round(quarter * 0.25 + dime * 0.1 + nickel * 0.05 + penny * 0.01, 2)
+
+        for coin in self.coins:
+            coins_count = tools.to_int(input(f"{coin[0].title()} (${coin[1]}): "))
+            self.money += coin[1] * coins_count
+
         if self.money >= self.menu[self.in_order]["cost"]:
             print(f"Credit: ${round(self.money, 2)}.")
         else:
