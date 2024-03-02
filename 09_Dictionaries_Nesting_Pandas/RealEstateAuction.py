@@ -8,43 +8,25 @@ import tools
 # All necessary variables
 name = ""
 bid = 0
-bidders =  []
-all_bids = {}
+bidders = []
 highest_bid = 0
 highest_bid_name = ""
 
 # Setting up Lots data structure
-properties = [
-    {
-        "property": "Apartment",
-        "description": {
-            "location": "Palmers Green, London, 413 Green Lanes, 4JD",
-            "bedrooms": 2,
-            "area": 83,
-            "starting_price": 600000
-        }
-    },
-    {
-        "property": "Townhouse",
-        "description": {
-            "location": "Laguna Park, Bang Tao, Thailand",
-            "bedrooms": 3,
-            "area": 170,
-            "starting_price": 250000
-        }
-    },
-    {
-        "property": "Villa",
-        "description": {
-            "location": "Fethiye, Mugla, Turkey",
-            "bedrooms": 5,
-            "area": 250,
-            "starting_price": 500000
-        }
-    }
-]
+lots = {
+    "property": ["Apartment", "Townhouse", "Villa"],
+    "location": ["Palmers Green, London, 413 Green Lanes, 4JD", "Laguna Park, Bang Tao, Thailand",
+                 "Fethiye, Mugla, Turkey"],
+    "bedrooms": [2, 3, 5],
+    "area": [83, 170, 250],
+    "starting_price": [600000, 250000, 500000]
+}
 
-df_lots = pd.DataFrame(properties)
+all_bids = {
+    "property": ["Apartment", "Townhouse", "Villa"]
+}
+
+df_lots = pd.DataFrame(lots)
 
 # Program starts
 print("Welcome to Real Estate Auction!")
@@ -56,23 +38,15 @@ if num_of_bidders == 0:
 for i in range(num_of_bidders):
     name = input("Enter bidder name: ")
     bidders.append(name)
-
-# The following snippet keeps int type for bids values.
-# Otherwise, they become floats when recording into DataFrame.
-
-for index, row in df_lots.iterrows():
-    all_bids[row['property']] = {name: 0 for name in bidders}
-
-df_bids = pd.DataFrame(all_bids)
+    all_bids[bidders[i]] = []
 
 # Starting auction
 for index, row in df_lots.iterrows():
     print("\nProperty Type:", row['property'])
-    description = row['description']
-    print("Location:", description['location'])
-    print("Bedrooms:", description['bedrooms'])
-    print("Area:", description['area'], "sq.m.")
-    print("Starting Price:", "${:,}".format(description['starting_price']))
+    print("Location:", row['location'])
+    print("Bedrooms:", row['bedrooms'])
+    print("Area:", row['area'], "sq.m.")
+    print("Starting Price:", "${:,}".format(row['starting_price']))
     print("-" * 30)
 
     highest_bid = 0
@@ -80,25 +54,27 @@ for index, row in df_lots.iterrows():
     for i in range(num_of_bidders):
         bid = tools.to_int(input(f"{bidders[i]}'s bid: $"))
 
-        if bid <= int(description['starting_price']):
+        if bid <= int(row['starting_price']):
             # If so, I warned you :)
             bid = tools.to_int(input("Bid above the starting price, otherwise you will lose: $"))
 
-        df_bids.loc[bidders[i], row['property']] = bid
+        all_bids[bidders[i]].append(bid)
+
+df_bids = pd.DataFrame(all_bids)
 
 # Final calculations
-max_bids = df_bids.max().apply(lambda x: "${:,}".format(x))
-winners_names = df_bids.idxmax()
-
-df_max_bids = pd.DataFrame(max_bids, columns=['Max bid']).T
-df_winners_names = pd.DataFrame(winners_names, columns=['Winner']).T
-
-df_result = pd.concat([df_bids, df_max_bids, df_winners_names])
+max_bids = df_bids.select_dtypes(include=[float, int]).max(axis=1).apply(lambda x: "${:,}".format(x))
+winners_names = df_bids.select_dtypes(include=[float, int]).idxmax(axis=1)
 
 table_bids = PrettyTable()
+field_names = df_bids.columns.tolist()
+field_names[0] = " "
+table_bids.field_names = field_names
 
-table_bids.field_names = ['Bidder'] + df_result.columns.tolist()
-for row_name, row in df_result.iterrows():
-    table_bids.add_row([row_name] + row.tolist())
+for index, row in df_bids.iterrows():
+    table_bids.add_row(row.tolist())
 
-print(table_bids)
+table_bids.add_column("Max bid", max_bids)
+table_bids.add_column("Winner", winners_names)
+
+print("\nAuction results:\n", table_bids)
