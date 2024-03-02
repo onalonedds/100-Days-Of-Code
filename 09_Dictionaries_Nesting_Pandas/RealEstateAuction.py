@@ -2,6 +2,7 @@
 
 import pyarrow
 import pandas as pd
+from prettytable import PrettyTable
 import tools
 
 # All necessary variables
@@ -94,4 +95,10 @@ df_winners_names = pd.DataFrame(winners_names, columns=['Winner']).T
 
 df_result = pd.concat([df_bids, df_max_bids, df_winners_names])
 
-print(f"\nTable of lots, bidders, and winners:\n\n{df_result}")
+table_bids = PrettyTable()
+
+table_bids.field_names = ['Bidder'] + df_result.columns.tolist()
+for row_name, row in df_result.iterrows():
+    table_bids.add_row([row_name] + row.tolist())
+
+print(table_bids)
