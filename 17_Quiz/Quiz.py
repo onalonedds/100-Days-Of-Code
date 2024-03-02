@@ -1,6 +1,7 @@
 class Quiz:
     def __init__(self, data):
         self._questions = data
+        self.size = len(self._questions)
         self._more_questions_were_added = False
         self.score = 0
         self._last_answered_question = 0
@@ -9,6 +10,7 @@ class Quiz:
     def add_questions(self, data):
         if len(data) > 0:
             self._questions.extend(data)
+            self.size = len(self._questions)
             self._more_questions_were_added = True
 
     @staticmethod
@@ -40,4 +42,3 @@ class Quiz:
                 print(f"Wrong. It is {question[1]}. Your score is {self.score}/{len(self._questions)}")
 
         self._last_answered_question = len(self._questions)
-        print(f"\nYou've completed the Quiz with score {self.score}/{len(self._questions)}")
