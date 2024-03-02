@@ -23,7 +23,7 @@ lots = {
 }
 
 all_bids = {
-    "property": ["Apartment", "Townhouse", "Villa"]
+    "": ["Apartment", "Townhouse", "Villa"]
 }
 
 df_lots = pd.DataFrame(lots)
@@ -67,9 +67,7 @@ max_bids = df_bids.select_dtypes(include=[float, int]).max(axis=1).apply(lambda 
 winners_names = df_bids.select_dtypes(include=[float, int]).idxmax(axis=1)
 
 table_bids = PrettyTable()
-field_names = df_bids.columns.tolist()
-field_names[0] = " "
-table_bids.field_names = field_names
+table_bids.field_names = df_bids.columns.tolist()
 
 for index, row in df_bids.iterrows():
     table_bids.add_row(row.tolist())
@@ -77,4 +75,5 @@ for index, row in df_bids.iterrows():
 table_bids.add_column("Max bid", max_bids)
 table_bids.add_column("Winner", winners_names)
 
-print("\nAuction results:\n", table_bids)
+print("\n\nAuction results:")
+print(table_bids)
