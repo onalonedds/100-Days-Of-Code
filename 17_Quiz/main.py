@@ -14,7 +14,7 @@ questions_2 = [
     ("8. You can lead a cow down stairs but not up stairs.", False),
     ("9. Google was originally called 'Backrub'.", True),
     ("10. Buzz Aldrin's mother's maiden name was 'Moon'.", True),
-    ("11. No piece of square dry paper can be folded in half more than 7 times.", False),
+    ("11_BlackJack. No piece of square dry paper can be folded in half more than 7 times.", False),
     ("12. A few ounces of chocolate can kill a small dog.", True)
 ]
 
