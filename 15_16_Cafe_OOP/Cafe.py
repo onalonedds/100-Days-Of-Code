@@ -14,6 +14,8 @@
 #        Dime    - 10 cents ($0.10)
 #        Quarter - 25 cents ($0.25)
 
+from Snack import Snack
+from Robot import Robot
 import tools
 
 
@@ -25,6 +27,7 @@ class CoffeeMachine:
         self._supplies = [["water", water], ["milk", milk], ["coffee", coffee]]
         self._money = 0
         self._in_order = ""
+        self.bonus_gifts = []
 
         self.drinks_ordered = 0
         self.money_spent = 0
@@ -122,6 +125,17 @@ class CoffeeMachine:
         print(f"Here's your {self._in_order}! Enjoy!")
         print(f"Credit: ${self._money}")
         self._in_order = ""
+
+    def bonus_gift(self):
+        if self.money_spent // 7 > 0:
+            num_of_snacks = tools.to_int(self.money_spent // 7)
+            for _ in range(0, num_of_snacks):
+                self.bonus_gifts.append(Snack("Cookie"))
+
+        if self.money_spent // 15 > 0:
+            num_of_toys = tools.to_int(self.money_spent // 15)
+            for _ in range(0, num_of_toys):
+                self.bonus_gifts.append(Robot("Robot"))
 
     def work(self):
         while self._keep_working:
