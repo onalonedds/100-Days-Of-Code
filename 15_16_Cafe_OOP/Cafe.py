@@ -145,7 +145,7 @@ class CoffeeMachine:
                     self._report_supplies()
                 case "add":
                     self._add_supplies()
-                case make if make in ["e", "l", "c"]:
+                case make if make in {"e", "l", "c"}:
                     self._accept_order(make)
                     while not self._check_supplies():
                         self._add_supplies()
