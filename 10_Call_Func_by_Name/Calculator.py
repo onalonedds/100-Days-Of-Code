@@ -36,7 +36,7 @@ for key in operations:
     print(f"{key} ({operations[key].__name__})")
 
 while keep_working == "":
-    if memory != "":
+    if memory:
         x = input("\nEnter first operand or type 'm' to use prev result: ")
         if x == "m":
             x = memory
