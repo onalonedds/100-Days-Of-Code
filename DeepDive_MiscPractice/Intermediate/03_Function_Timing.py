@@ -56,4 +56,3 @@ def fib_reduce(n):
 print(_fib_recursive(36))
 print(fib_loop(36))
 print(fib_reduce(36))
-
