@@ -52,7 +52,6 @@ while keep_working == "":
         print(f"{x} {operation} {y} Error: division by zero.")
         memory = 0
     else:
-        action = operations[operation]
-        memory = action(x, y)
+        memory = operations[operation](x, y)
         print(f"{x} {operation} {y} = {memory}\nMemory: {memory}")
         keep_working = input("Press Enter to continue, any char to exit.")
