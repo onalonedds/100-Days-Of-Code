@@ -3,16 +3,14 @@ def dispatcher(fn):
 
     registry[object] = fn
 
-    # register(type_) - decorator factory
-    def register(type_):
+    def register(type_):  # decorator factory
         def inner(fn):
             registry[type_] = fn
             return fn  # we do this so we can stack register decorators!
 
         return inner
 
-    # decorator(arg) - default decorator
-    def decorator(arg):
+    def decorator(arg):  # default decorator
         fn = registry.get(type(arg), registry[object])
         return fn(arg)
 
