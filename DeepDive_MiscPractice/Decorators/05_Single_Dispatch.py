@@ -28,10 +28,10 @@ def worker_sqc(v):
 #     print(f'Boolean({v})\n')
 
 
-worker('Hello!')
-worker(10)
-worker(True)
-worker([1, 2, 3])
+worker('Hello!')  # Sequence
+worker(10)  # Integral
+worker(True)  # Integral
+worker([1, 2, 3])  # Sequence
 
 for k, v in worker.registry.items():
     print(f'{k.__name__}: {v.__name__}')
